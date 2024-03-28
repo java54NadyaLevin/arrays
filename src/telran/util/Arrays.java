@@ -1,6 +1,7 @@
 package telran.util;
 
 import java.util.Comparator;
+import java.util.function.Predicate;
 
 public class Arrays {
 	public static <T> int indexOf(T[] array, T element) {
@@ -45,22 +46,43 @@ public class Arrays {
 			}
 		}
 	}
-	
+
 	public static <T> int binarySearch(T[] array, T key, Comparator<T> comp) {
-		//TODO
-		//only sorted array!
-		//if key == length/2  -  return length/2??
-		//if key < length/2 - search again in first half. else - in second half
-		//left index = 0;
-		//right index = array.length-1;
-		//middle index = (left + right) /2;
-		//left part: left index; right  = middle-1;
-		//right part: left index = middle + 1; right index;
-		//while  left <= right - additional statement;
-		//returns as binary search;
-		//if there are several equal elements, 
-		//any of indexes can be returned - no guarantee
+		// TODO
+		// only sorted array!
+		// if key == length/2 - return length/2??
+		// if key < length/2 - search again in first half. else - in second half
+		// left index = 0;
+		// right index = array.length-1;
+		// middle index = (left + right) /2;
+		// left part: left index; right = middle-1;
+		// right part: left index = middle + 1; right index;
+		// while left <= right - additional statement;
+		// returns as binary search;
+		// if there are several equal elements,
+		// any of indexes can be returned - no guarantee
 		return -1;
+
+	}
+
+	public static <T> T[] search(T[] array, Predicate<T> predicate) {
+		// impossible to allocate memory for generic array
+		// Only Arrays.copyOf
+		T[] arResult = java.util.Arrays.copyOf(array, array.length);
+		int index = 0;
+		for (int i = 0; i < array.length; i++) {
+			if (predicate.test(array[i])) {
+				arResult[index++] = array[i];
+			}
+		}
+			return java.util.Arrays.copyOf(arResult, index);
+		}
+	
+
+	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
+		// TODO
+		// removes all elements of array matching predicate
+		return null;
 	}
 
 }
