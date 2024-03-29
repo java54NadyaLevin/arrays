@@ -77,8 +77,12 @@ class ArraysTests {
 		assertArrayEquals(expectedNegative, Arrays.search(numbers, a -> a < 0));
 	}
 	@Test
-	void binarySearchTest() {
-		//TODO
+	void binarySearchIntTest() {
+		Integer[] array = {10, 25, 30, 40, 100};
+		assertEquals(-1, Arrays.binarySearch(array, 5, (s1, s2) -> s1.compareTo(s2)));
+		assertEquals(-6, Arrays.binarySearch(array, 105, (s1, s2) -> s1.compareTo(s2)));
+		assertEquals(-3, Arrays.binarySearch(array, 26, (s1, s2) -> s1.compareTo(s2)));
+		assertEquals(1, Arrays.binarySearch(array, 25, (s1, s2) -> s1.compareTo(s2)));
 	}
 	
 	@Test

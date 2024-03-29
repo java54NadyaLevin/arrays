@@ -48,20 +48,29 @@ public class Arrays {
 	}
 
 	public static <T> int binarySearch(T[] array, T key, Comparator<T> comp) {
-		// TODO
-		// only sorted array!
-		// if key == length/2 - return length/2??
-		// if key < length/2 - search again in first half. else - in second half
-		// left index = 0;
-		// right index = array.length-1;
-		// middle index = (left + right) /2;
+		int left = 0;
+		int right = array.length - 1;
+		int middle = (left + right) / 2;
+		int res = -1;
+		if (comp.compare(key, array[array.length - 1]) > 0) {
+			res = -array.length - 1;
+		}
+		while (left <= right) {
+			if (comp.compare(key, array[middle]) < 0) {
+				right = middle - 1;
+			} else if (comp.compare(key, array[middle]) > 0) {
+				left = middle + 1;
+			} else
+				return middle;
+		}
+		res = middle;
 		// left part: left index; right = middle-1;
 		// right part: left index = middle + 1; right index;
 		// while left <= right - additional statement;
 		// returns as binary search;
 		// if there are several equal elements,
 		// any of indexes can be returned - no guarantee
-		return -1;
+		return res;
 
 	}
 
@@ -75,9 +84,8 @@ public class Arrays {
 				arResult[index++] = array[i];
 			}
 		}
-			return java.util.Arrays.copyOf(arResult, index);
-		}
-	
+		return java.util.Arrays.copyOf(arResult, index);
+	}
 
 	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
 		// TODO
