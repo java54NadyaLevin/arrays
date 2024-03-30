@@ -77,14 +77,12 @@ public class Arrays {
 		T[] arResult = java.util.Arrays.copyOf(array, array.length);
 		int index = 0;
 		for (int i = 0; i < array.length; i++) {
-			if (remove) {
-				if (!predicate.test(array[i])) {
-					arResult[index++] = array[i];
-				}
-			} else {
-				if (predicate.test(array[i])) {
-					arResult[index++] = array[i];
-				}
+
+			if (remove && !predicate.test(array[i])) {
+				arResult[index++] = array[i];
+
+			} else if (!remove && predicate.test(array[i])) {
+				arResult[index++] = array[i];
 			}
 		}
 
