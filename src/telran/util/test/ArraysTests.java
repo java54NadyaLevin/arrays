@@ -71,23 +71,36 @@ class ArraysTests {
 	@Test
 	void searchTest() {
 		Integer[] expectedEven = { 100, 4, 8, 56 };
-		assertArrayEquals(expectedEven, Arrays.search(numbers, 
-				a -> a %2 == 0));
+		assertArrayEquals(expectedEven, Arrays.search(numbers, a -> a % 2 == 0));
 		Integer[] expectedNegative = { -3, -7 };
 		assertArrayEquals(expectedNegative, Arrays.search(numbers, a -> a < 0));
 	}
+
 	@Test
-	void binarySearchIntTest() {
-		Integer[] array = {10, 25, 30, 40, 100};
+	void binarySearchTest() {
+		Integer[] array = { 10, 25, 30, 40, 100 };
 		assertEquals(-1, Arrays.binarySearch(array, 5, (s1, s2) -> s1.compareTo(s2)));
 		assertEquals(-6, Arrays.binarySearch(array, 105, (s1, s2) -> s1.compareTo(s2)));
 		assertEquals(-3, Arrays.binarySearch(array, 26, (s1, s2) -> s1.compareTo(s2)));
 		assertEquals(1, Arrays.binarySearch(array, 25, (s1, s2) -> s1.compareTo(s2)));
 	}
-	
+
 	@Test
 	void removeIfTest() {
-		//TODO
+		Integer[] removeOdd = { 100, 4, 8, 56 };
+		assertArrayEquals(removeOdd, Arrays.removeIf(numbers, a -> a % 2 != 0));
+		Integer[] RemovePositive = { -3, -7 };
+		assertArrayEquals(RemovePositive, Arrays.removeIf(numbers, a -> a > 0));
+		Integer[] removeExisting = { 100, -3, 23, 8, 41, 56, -7 };
+		assertArrayEquals(removeExisting, Arrays.removeIf(numbers, a -> a == 4));
+		Integer[] removeNotExisting = { 100, -3, 23, 4, 8, 41, 56, -7 };
+		assertArrayEquals(removeNotExisting, Arrays.removeIf(numbers, a -> a == 22));
+		Integer[] removeInterval = { 23, 41, 56 };
+		assertArrayEquals(removeInterval, Arrays.removeIf(numbers, a -> a < 10 || a > 99));
+		
+		
+		
+
 	}
 
 }
