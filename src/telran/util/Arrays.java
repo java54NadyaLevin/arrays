@@ -66,14 +66,14 @@ public class Arrays {
 	}
 
 	public static <T> T[] search(T[] array, Predicate<T> predicate) {
-		return generateNewArray(array, predicate, false);
+		return filterArray(array, predicate, false);
 	}
 
 	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
-		return generateNewArray(array, predicate, true);
+		return filterArray(array, predicate, true);
 	}
 
-	private static <T> T[] generateNewArray(T[] array, Predicate<T> predicate, boolean remove) {
+	private static <T> T[] filterArray(T[] array, Predicate<T> predicate, boolean remove) {
 		T[] arResult = java.util.Arrays.copyOf(array, array.length);
 		int index = 0;
 		for (int i = 0; i < array.length; i++) {
