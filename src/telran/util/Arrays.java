@@ -50,16 +50,19 @@ public class Arrays {
 	public static <T> int binarySearch(T[] array, T key, Comparator<T> comp) {
 		int left = 0;
 		int right = array.length - 1;
-		int middle = (left + right) / 2;
-		while (left <= right && key != array[middle]) {
-			middle = (left + right) / 2;
-			if (comp.compare(key, array[middle]) < 0) {
+		int result = -1;
+		while (left <= right && result < 0) {
+			int middle = (left + right) / 2;
+			int compResult = comp.compare(key, array[middle]);
+			if (compResult == 0) {
+				result = middle;
+			} else if (compResult < 0) {
 				right = middle - 1;
 			} else {
 				left = middle + 1;
-			} 
+			}
 		}
-		return key == array[middle] ? middle : -(left + 1);
+		return result != -1 ? result : -(left + 1);
 	}
 
 	public static <T> T[] search(T[] array, Predicate<T> predicate) {
