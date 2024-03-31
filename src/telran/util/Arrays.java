@@ -50,43 +50,32 @@ public class Arrays {
 	public static <T> int binarySearch(T[] array, T key, Comparator<T> comp) {
 		int left = 0;
 		int right = array.length - 1;
-
-		while (left <= right) {
-			int middle = (left + right) / 2;
+		int middle = (left + right) / 2;
+		while (left <= right && key != array[middle]) {
+			middle = (left + right) / 2;
 			if (comp.compare(key, array[middle]) < 0) {
 				right = middle - 1;
-			} else if (comp.compare(key, array[middle]) > 0) {
+			} else {
 				left = middle + 1;
-			} else
-				return middle;
+			} 
 		}
-
-		return -(left + 1);
-
+		return key == array[middle] ? middle : -(left + 1);
 	}
 
 	public static <T> T[] search(T[] array, Predicate<T> predicate) {
-		return filterArray(array, predicate, false);
-	}
-
-	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
-		return filterArray(array, predicate, true);
-	}
-
-	private static <T> T[] filterArray(T[] array, Predicate<T> predicate, boolean remove) {
 		T[] arResult = java.util.Arrays.copyOf(array, array.length);
 		int index = 0;
 		for (int i = 0; i < array.length; i++) {
 
-			if (remove && !predicate.test(array[i])) {
-				arResult[index++] = array[i];
-
-			} else if (!remove && predicate.test(array[i])) {
+			if (predicate.test(array[i])) {
 				arResult[index++] = array[i];
 			}
 		}
-
 		return java.util.Arrays.copyOf(arResult, index);
+	}
+
+	public static <T> T[] removeIf(T[] array, Predicate<T> predicate) {
+		return search(array, predicate.negate());
 	}
 
 }
